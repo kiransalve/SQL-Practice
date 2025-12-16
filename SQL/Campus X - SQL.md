@@ -32,3 +32,19 @@ DROP DATABASE sales_db;
 ```
 DROP DATABASE IF EXISTS sales
 ```
+
+4. How to create tables in mysql workbench?
+
+```
+create databse if not exists campusx;
+
+use campusx;
+
+CREATE TABLE users(
+user_id INTEGER,
+name varchar(255),
+email varchar(255),
+password varchar(255)
+)
+
+```
