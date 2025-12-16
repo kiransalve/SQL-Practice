@@ -79,3 +79,30 @@ Constraints in SQL are rules applied to table columns to enforce data integrity.
 
 Simply: Constraints = Data validation rules at database level
 
+9. How we define Constraints? and what are types?
+
+```
+
+use campusx;
+
+CREATE TABLE users(
+user_id INTEGER NOT NULL,
+name varchar(255) NOT null,
+email varchar(255) NOT NULL UNIQUE,
+password varchar(255) NOT NULL,
+);
+```
+
+```
+
+use campusx;
+
+CREATE TABLE users(
+user_id INTEGER NOT NULL,
+name varchar(255) NOT null,
+email varchar(255) NOT NULL,
+password varchar(255) NOT NULL,
+
+constraint users_email_unique UNIQUE (name, email) 
+);
+```
