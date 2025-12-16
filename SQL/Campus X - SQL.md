@@ -59,3 +59,10 @@ values
 (1,"Kiran Salve","kiran@gmail.com","2011"),
 (1,"Kiran Salve","kiran@gmail.com","2011");
 ``` 
+
+6. How to delete tables?
+
+```
+
+truncate table users;
+```
