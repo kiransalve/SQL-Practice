@@ -64,5 +64,7 @@ values
 
 ```
 
-truncate table users;
+truncate table users;  --this empty the table
+
+drop table users;      --this delete the table
 ```
