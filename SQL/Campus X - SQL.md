@@ -81,6 +81,8 @@ Simply: Constraints = Data validation rules at database level
 
 9. How we define Constraints? and what are types?
 
+---1---
+
 ```
 
 use campusx;
@@ -92,6 +94,9 @@ email varchar(255) NOT NULL UNIQUE,
 password varchar(255) NOT NULL,
 );
 ```
+
+
+---2---
 
 ```
 
@@ -106,3 +111,9 @@ password varchar(255) NOT NULL,
 constraint users_email_unique UNIQUE (name, email) 
 );
 ```
+
+In second way to define Constraint, we have two important benefit,
+
+1. In scenario where we need to make combination of email and password to be unique
+   
+2. In future when we want to release Constraints on columns, we can simply delete this (users_email_unique)
