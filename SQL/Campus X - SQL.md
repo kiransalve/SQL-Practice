@@ -48,3 +48,14 @@ password varchar(255)
 )
 
 ```
+
+5. How to insert data in tables?
+
+```
+
+insert into users(user_id, name, email, password)
+values
+(1,"Kiran Salve","kiran@gmail.com","2011"),
+(1,"Kiran Salve","kiran@gmail.com","2011"),
+(1,"Kiran Salve","kiran@gmail.com","2011");
+``` 
