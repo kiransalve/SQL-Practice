@@ -68,3 +68,14 @@ truncate table users;  --this empty the table
 
 drop table users;      --this delete the table
 ```
+
+7. What is Data Integrity?
+
+Data Integrity in SQL means keeping your data accurate, consistent, and reliable throughout its lifecycle.
+
+8. What are Contraints?
+
+Constraints in SQL are rules applied to table columns to enforce data integrity.
+
+Simply: Constraints = Data validation rules at database level
+
