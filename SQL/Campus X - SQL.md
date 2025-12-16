@@ -117,3 +117,4 @@ In second way to define Constraint, we have two important benefit,
 1. In scenario where we need to make combination of email and password to be unique
    
 2. In future when we want to release Constraints on columns, we can simply delete this (users_email_unique)
+
