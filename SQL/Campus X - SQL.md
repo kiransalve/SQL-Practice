@@ -166,3 +166,26 @@ constraint students_age check (age > 6 and age < 25)
 );
 
 ```
+
+15. What is Foreign Key Constraint?
+
+The foreign key is used to create relationship between two tables and maintain data integrity by ensuring that the value in one table must exists in another table.
+
+```
+// Parent table
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+// Child Table
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+```
+
+1. You cannot insert a value in child table that does not exist in parent
+2. Cannot delete parent if child exists
+
