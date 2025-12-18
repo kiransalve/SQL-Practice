@@ -218,4 +218,26 @@ eg. when customer deleted orders are stays and their cid becomes NULL
 
 eg. when customer deleted orders are stays and their cid becomes "0"
 
- 
+18. How to alter columns in tables using alter?
+
+```
+-- add columns
+ALTER TABLE users
+ADD COLUMN city VARCHAR(100),
+ADD COLUMN country VARCHAR(100);
+
+-- modify columns
+ALTER TABLE users
+MODIFY COLUMN name VARCHAR(200);
+
+-- rename columns
+ALTER TABLE users
+CHANGE COLUMN name full_name VARCHAR(255);
+
+-- delete columns
+ALTER TABLE users
+DROP COLUMN age;
+
+
+```
+
