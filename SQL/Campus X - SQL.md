@@ -51,6 +51,8 @@ password varchar(255)
 
 ```
 
+*** remember - sql commands are in caps and table name and column name in small case
+
 5. How to insert data in tables?
 
 ```
