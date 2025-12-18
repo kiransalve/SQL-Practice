@@ -152,3 +152,17 @@ O/p
 1	kiran	2025-12-18 12:27:32
 		
 ```
+
+14. What is use case of check constraint?
+
+```
+
+create table students(
+std_id integer auto_increment primary key,
+name varchar(255) not null,
+age integer check (age > 6 and age < 25)
+
+constraint students_age check (age > 6 and age < 25)
+);
+
+```
