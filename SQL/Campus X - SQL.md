@@ -238,6 +238,9 @@ CHANGE COLUMN name full_name VARCHAR(255);
 ALTER TABLE users
 DROP COLUMN age;
 
+-- alter constraint
+alter table customers
+add constraint customer_age check (age > 19);
 
 ```
 
