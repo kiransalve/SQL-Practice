@@ -1,4 +1,4 @@
-Campus X Playlist - https://www.youtube.com/watch?v=CTLwYjh92xw&list=PLBv9GORP5VkclmbvgNaEB3GBFc-weefX7
+https://www.youtube.com/watch?v=CTLwYjh92xw&list=PLBv9GORP5VkclmbvgNaEB3GBFc-weefX7
 
 1. What are types of SQL Commands ?
 
@@ -121,4 +121,21 @@ In second way to define Constraint, we have two important benefit,
 1. In scenario where we need to make combination of email and password to be unique
    
 2. In future when we want to release Constraints on columns, we can simply delete this (users_email_unique)
+
+
+10. What is auto_increment contraint?
+
+it will increment by 1 for every next row.
+
+11. what is unique contraint?
+
+It ensure the duplicate entry not added for that specific column.
+
+12. What is primary key constraint?
+
+It used to uniquely identify each record
+
+We need not to mention not null and unique seprately when we define primary key
+
+
 
