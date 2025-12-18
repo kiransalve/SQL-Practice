@@ -137,5 +137,18 @@ It used to uniquely identify each record
 
 We need not to mention not null and unique seprately when we define primary key
 
+13. What is use case of default contraint?
 
+```
 
+create table ticket(
+ticket_id integer primary key,
+name varchar(255) not null,
+travel_date datetime default current_timestamp
+);
+
+O/p
+
+1	kiran	2025-12-18 12:27:32
+		
+```
