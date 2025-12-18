@@ -189,3 +189,33 @@ CREATE TABLE orders (
 1. You cannot insert a value in child table that does not exist in parent
 2. Cannot delete parent if child exists
 
+16. Give types of Constraints in SQL?
+
+1. NOT NULL
+2. UNIQUE
+3. PRIMARY KEY
+4. CHECK
+5. DEFAULT
+6. FOREIGN KEY
+7. AUTO_INCREMENT
+
+17. What are referntial actions?
+
+1. Restrict - Stop the action if child records exist.
+
+eg. if one customer has 3 orders then you cannot delete customer
+
+2. CASCADE - Automatically apply the change to child rows
+
+eg. if you delete customer then all orders of that customer deleted
+	if you update customer id then order also update the customer id
+	
+3. SET NULL - set foreign key value to null in child table, FK column must allow NULL
+
+eg. when customer deleted orders are stays and their cid becomes NULL
+
+4. SET Default - set foreign key to any default value like "0"
+
+eg. when customer deleted orders are stays and their cid becomes "0"
+
+ 
