@@ -241,3 +241,10 @@ DROP COLUMN age;
 
 ```
 
+19. What is DDL?
+
+DDL is a set of SQL commands used to create, change, or delete database objects
+(like database, table, columns, constraints).
+
+It works on structure, not on data.
+
