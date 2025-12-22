@@ -400,4 +400,72 @@ select ceil(screen_size) from sales.sp;
 select floor(screen_size) from sales.sp;
 
 
+create database sales;
+
+select model, screen_size from sales.sp 
+where brand_name = "samsung"
+order by screen_size DESC
+limit 1;
+
+select model, num_front_cameras + num_rear_cameras as total 
+from sales.sp
+order by total desc;
+
+select model,
+round(sqrt(resolution_width*resolution_width+
+resolution_height*resolution_height)/screen_size) as ppi
+from sales.sp 
+order by ppi desc;
+
+SELECT model, battery_capacity
+from  sales.sp
+ORDER BY battery_capacity desc limit 1,1;
+
+-- find 2nd largest 
+SELECT model, battery_capacity
+from  sales.sp
+ORDER BY battery_capacity desc limit 3,2;
+
+-- find worst apple phone
+select model, rating
+from sales.sp
+where brand_name = "apple"
+order by rating asc limit 1;
+
+-- find low to high price 
+select * from sales.sp
+order by brand_name asc, price asc;   
+
+select * from sales.sp
+order by brand_name asc, rating asc;
+
+-- Group by
+-- brand name with smartphones
+select brand_name, count(*) as "count", 
+round(avg(price),2) as "avg_price",
+round(avg(screen_size),2) as "screen_size"
+from sales.sp
+group by brand_name
+order by count desc limit 5;
+
+-- group smartphone whether nfc 
+select has_nfc, avg(price) as "avg_price",
+avg(rating) as "rating"
+from sales.sp
+group by has_nfc; 
+
+
+select has_5g, avg(price) as "avg_price",
+avg(rating) as "rating"
+from sales.sp
+group by has_5g;
+
+
+
+select fast_charging, avg(price) as "avg_price",
+avg(rating) as "rating"
+from sales.sp
+group by fast_charging;
+
+
 ```
