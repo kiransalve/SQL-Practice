@@ -251,3 +251,153 @@ DDL is a set of SQL commands used to create, change, or delete database objects
 
 It works on structure, not on data.
 
+
+```
+
+SELECT * FROM sales.sp;
+
+--  filter column
+select model, price, rating from sales.sp;
+
+-- add alias
+select os as "Operating Sytem", rating from sales.sp; 
+
+-- mathematical calculation
+-- calculate ppi value
+select model, 
+round(sqrt(resolution_width * resolution_width + 
+resolution_height * resolution_height) / screen_size,2) as  ppi from sales.sp;
+ 
+ -- rating scale to 10
+ select model, rating/10 from sales.sp;
+ 
+-- create constant column
+select model, "samartphone" as "type" from sales.sp;
+
+-- Distinct value from column
+-- what are brand names?
+select distinct brand_name from sales.sp; 
+
+-- what are os?
+select distinct os from sales.sp;
+
+select distinct brand_name, processor_brand
+from sales.sp;
+
+-- Filter rows
+-- give smartphones that has brand_name?
+select * from sales.sp 
+where brand_name = "samsung";
+
+-- find all phones with price < 15000
+select * from sales.sp
+where price < 15000; 
+
+-- between
+-- find all phones with price between 10000 to 15000
+select * from sales.sp
+where price > 10000 and price < 15000;
+
+select * from sales.sp
+where price between 10000 and 15000; 
+  
+-- rating more that 80 and price < 25000
+select * from sales.sp
+where price < 15000 and rating > 80 and processor_brand = "snapdragon";
+
+-- find all sampsung phone with ram > 8 gb
+select * from sales.sp 
+where brand_name = "samsung" and ram_capacity > 8;
+
+-- find all phone with snapdrogon samsung
+SELECT * from sales.sp
+where brand_name = "samsung" and processor_brand ="snapdragon";
+
+-- Query Execution Order
+-- FROM
+-- JOIN
+-- WHERE
+-- GROUP BY
+-- HAVING
+-- SELECT
+-- DISTINCT
+-- ORDER BY
+
+--  find out brand name which have price more than 100000
+SELECT DISTINCT brand_name from sales.sp
+WHERE price > 100000;
+
+
+-- phone of processor snapdragon, bionic 
+select * from sales.sp
+where processor_brand = "snapdragon" OR
+processor_brand = "exynos" OR
+processor_brand = "bionic";
+
+select * from sales.sp
+where processor_brand in ("snapdragon","exynos","bionic");
+
+select * from sales.sp
+where processor_brand not in ("snapdragon","exynos","bionic");
+
+-- Replace snapdragon with snapDG 
+UPDATE sales.sp
+set processor_brand = "snapDRAGON"
+where processor_brand = "snapdragon";
+
+select distinct processor_brand from sales.sp;
+
+update sales.sp
+set processor_brand = "HELIO"
+where processor_brand = "helio";
+
+update sales.sp
+set processor_brand = "BIONIC"
+where processor_brand = "bionic";
+
+select * from sales.sp
+where price > 200000;
+
+delete from sales.sp
+where price > 200000;
+
+SELECT * from sales.sp
+where primary_camera_rear > 150 and brand_name = "nokia";
+
+delete from sales.sp
+where primary_camera_rear > 150 and brand_name = "nokia";
+
+-- Aggregate function
+  
+  select max(price) from sales.sp;
+  
+  select min(price) from sales.sp;
+  
+  select MAX(ram_capacity) from sales.sp;
+  
+  -- find costier samsung phone
+  
+select * from sales.sp
+where brand_name = "samsung" and price = 11099;
+  
+select avg(rating) from sales.sp
+where brand_name = "apple";
+
+select avg(price) from sales.sp
+where brand_name = "apple";
+
+select count(*) from sales.sp
+where brand_name = "apple"; 
+
+select count(distinct(processor_brand)) from sales.sp;
+
+select std(screen_size) from sales.sp;
+
+select variance(screen_size) from sales.sp;
+
+select ceil(screen_size) from sales.sp;
+
+select floor(screen_size) from sales.sp;
+
+
+```
