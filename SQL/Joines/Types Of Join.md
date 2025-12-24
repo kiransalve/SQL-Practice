@@ -13,4 +13,6 @@ INNER JOIN orders o
 ON c.cid = o.cid;
 ```
 
+2. LEFT JOIN
+
 
