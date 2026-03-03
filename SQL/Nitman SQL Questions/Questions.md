@@ -1,3 +1,200 @@
+```
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    department VARCHAR(50),
+    salary DECIMAL(10, 2),
+    hire_date DATE
+);
+
+INSERT INTO employees (emp_id, emp_name, department, salary, hire_date)
+VALUES
+(1, 'Alice', 'HR', 55000, '2018-01-15'),
+(2, 'Bob', 'IT', 75000, '2017-05-23'),
+(3, 'Charlie', 'Finance', 82000, '2019-03-12'),
+(4, 'Diana', 'IT', 60000, '2020-07-19'),
+(5, 'Eve', 'HR', 52000, '2021-11-05'),
+(6, 'Frank', 'Finance', 72000, '2020-08-10'),
+(7, 'Grace', 'HR', 61000, '2016-12-20'),
+(8, 'Hank', 'IT', 69000, '2019-01-11'),
+(9, 'Ivy', 'Finance', 73000, '2018-09-30'),
+(10, 'Jack', 'HR', 54000, '2017-10-15'),
+(11, 'Kate', 'IT', 78000, '2016-06-01'),
+(12, 'Leo', 'HR', 59000, '2019-02-21'),
+(13, 'Mia', 'Finance', 76000, '2019-04-10'),
+(14, 'Nick', 'IT', 65000, '2018-12-05'),
+(15, 'Olivia', 'HR', 53000, '2020-09-29'),
+(16, 'Paul', 'Finance', 70000, '2021-03-22'),
+(17, 'Quincy', 'IT', 72000, '2020-01-07'),
+(18, 'Rita', 'HR', 60000, '2020-05-15'),
+(19, 'Steve', 'Finance', 78000, '2019-08-18'),
+(20, 'Tom', 'IT', 81000, '2018-07-23'),
+(21, 'Uma', 'HR', 58000, '2020-02-17'),
+(22, 'Victor', 'Finance', 75000, '2021-05-10'),
+(23, 'Wendy', 'IT', 70000, '2020-10-05'),
+(24, 'Xander', 'HR', 62000, '2017-11-22'),
+(25, 'Yara', 'Finance', 82000, '2021-06-30');
+
+select * from employees;
+select max(salary) from employees;
+select *,max(salary) over(PARTITION BY department) as max_salary from employees;
+
+select *, avg(salary) over() as avg_salary
+from employees;
+
+select *, max(salary) over(PARTITION BY department) as max_salary, avg(salary) over(PARTITION BY department) as avg_sal
+from employees;
+
+SELECT *,
+       ROW_NUMBER() OVER (
+           PARTITION BY department
+       ) AS row_num
+FROM employees;
+
+-- Find the row number of each employee ordered by salary.
+SELECT *, ROW_NUMBER() over(order by salary desc) from employees; 
+
+-- Rank employees based on their salarie
+select *, rank() over(PARTITION BY department order by salary desc) from employees; 
+
+select *, DENSE_RANK() over(order by salary desc) from employees;
+
+select *, DENSE_RANK() over(partition by department order by salary desc) from employees;
+
+-- Rank employees by hire date.
+select *, rank() over(order BY hire_date asc) from employees;  
+
+-- Find the row number of each employee within their department based on hire date.
+SELECT *, rank() over(PARTITION BY department order by hire_date) from employees; 
+
+-- ytd hires
+select emp_name, hire_date, count(*) over(partition by extract(year from hire_date) order by hire_date) as ytd_hires FROM employees;
+
+-- Find the row number of each employee within their department based on hire date
+select *, ROW_NUMBER() over(PARTITION BY department ORDER BY hire_date) from employees; 
+
+-- Show the employee name and salary of the highest-paid employee in each department
+select emp_name, department, salary
+from 
+(select *, rank() over(PARTITION BY department order by salary desc) as rank_no from employees) as t
+where rank_no = 1;
+
+-- second highest salary
+select max(salary) from employees
+where  salary < (select max(salary) from employees);
+
+select emp_name, salary from (
+select *, dense_rank() over(order by salary desc) as rnk from employees
+) as t
+where rnk = 2;
+
+select * from (
+select *, DENSE_RANK() over(order by salary desc) as rnk from employees) as t
+where rnk = 1;
+
+select *, dense_rank() over(order by salary desc) as rnk from employees; -- not skip  
+
+select *, rank() over(order by salary desc) as rnk from employees; -- skip if duplicate 
+
+select * from employees
+order by salary desc limit 1 offset 2;
+
+-- emp_name start from "c" 
+select * from employees where emp_name like "c%";
+
+-- display today date 
+select current_date();
+select date(now());
+
+-- alternate records
+-- even 
+select * from employees where emp_id%2=0;
+-- odd 
+select * from employees where emp_id%2=1; 
+
+select * from
+(select *, row_number() over(ORDER BY salary) as row_num from employees) e
+where e.row_num % 2 = 0;
+
+select * from employees;
+
+select department, max(salary) from employees
+group by department;
+
+select *, max(salary) over(PARTITION BY department) as max_salary from employees;
+
+SELECT *,year(hire_date), MAX(salary) over(PARTITION BY year(hire_date)) from employees; 
+
+select *, ROW_NUMBER() over(PARTITION BY department) as rn
+from employees;
+
+select *, ROW_NUMBER() over(PARTITION BY department ORDER BY hire_date) as rn from employees;
+
+-- fetch only first 2 employees from each department by hire date
+
+select * from (
+select *, row_number() over(PARTITION BY department ORDER BY hire_date) as rn from employees
+) as t
+where rn < 3;
+
+-- top 3 emp of each department
+select * from (
+select *, rank() over(PARTITION BY department order by salary desc) as rn from employees) as t
+where rn <=3;
+
+select * from (
+select *,DENSE_RANK() over(PARTITION BY department order by salary desc) as rn from employees) as t
+where rn <=3;
+
+ select *, 
+ DENSE_RANK() over(PARTITION BY department ORDER BY salary desc) as dens_rn,
+ rank() over(PARTITION BY department order by salary desc) as rn,
+ ROW_NUMBER() over(partition by department ORDER BY salary desc) as r_no
+ from employees;
+ 
+-- lag
+-- fetch query to display if salary of an emploeyee is higher, lower or equal to the previous employee
+
+select *,
+lag(salary) over(PARTITION BY department order by emp_id) as prev_emp_salary from employees; 
+
+select *,
+lag(salary, 2, 0) over(PARTITION BY department order by emp_id) as prev_emp_salary, 
+lead(salary,2,0) over(partition by department order by emp_id) as next_emp_salary
+from employees;
+
+select *,
+lag(salary) over(PARTITION BY department ORDER BY emp_id) as prev_emp_salary,
+lead(salary) over(PARTITION BY department order by emp_id) as next_emp_salary 
+from employees;
+
+-- display as high/low/same
+select *,
+lag(salary) over(PARTITION BY department order by emp_id) as prev_emp_salary,
+case when lag(salary) over(PARTITION BY department order by emp_id) > salary then "Higher Salary than previous employee"
+when lag(salary) over(PARTITION BY department order by emp_id) < salary then "Lower Salary than previous employee"
+when lag(salary) over(PARTITION BY department order by emp_id) = salary then "Same Salary as previous employee"
+end as salary_range
+from employees;
+
+select * from employees
+order by salary desc LIMIT 2,1;
+
+SELECT * from employees
+order by salary desc
+limit 1 OFFSET 3;
+
+select * from employees e1
+where 2 = (
+select count(distinct(e2.salary)) from employees e2
+where e2.salary > e1.salary);
+
+select * from employees e1 where 2 = (
+select count(DISTINCT(e2.salary)) from employees e2
+where e1.salary > e2.salary);
+
+
+
 CREATE TABLE em (
     emp_id INT PRIMARY KEY,
     emp_name VARCHAR(50),
@@ -439,3 +636,4 @@ select * from high_salary_emp;
 
 
  
+```
