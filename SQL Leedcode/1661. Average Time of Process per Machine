@@ -1,3 +1,4 @@
+```
 1661. Average Time of Process per Machine
 
 create database leetcode;
@@ -25,3 +26,5 @@ values
  and a1.activity_type = "start"
  and a2.activity_type = "end"
  group by a1.machine_id;
+
+```
